@@ -1,0 +1,41 @@
+name: Build
+
+on:
+  pull_request:
+    branches:
+      - '*'
+
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Set up JDK 17 (Zulu)
+        uses: actions/setup-java@v2
+        with:
+          java-version: 17
+          distribution: zulu
+
+      - name: Maven (clean verify)
+        run: mvn -B clean verify
+
+      - name: Test Coverage (Codecov)
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Checkstyle
+        uses: dbelyaev/action-checkstyle@master
+        with:
+          github_token: ${{ secrets.github_token }}
+          workdir: ./
+          checkstyle_config: checkstyle.xml
+          filter_mode: diff_context
+          fail_on_error: true
+          reporter: github-pr-review
+          level: error

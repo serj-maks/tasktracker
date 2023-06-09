@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE module PUBLIC "-//Checkstyle//DTD Checkstyle Configuration 1.3//EN" "https://checkstyle.org/dtds/configuration_1_3.dtd">
+
+<module name="Checker">
+
+    <module name="SuppressionFilter">
+        <property name="file" value="checkstyle-suppressions.xml" />
+        <property name="optional" value="false" />
+    </module>
+
+    <module name="SuppressWarningsFilter" />
+
+    <module name="FileTabCharacter">
+        <property name="severity" value="error" />
+        <property name="fileExtensions" value="*.java" />
+        <property name="eachLine" value="true" />
+    </module>
+
+    <module name="LineLength">
+        <property name="severity" value="error" />
+        <property name="max" value="150" />
+        <property name="tabWidth" value="8" />
+        <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://" />
+    </module>
+
+    <module name="TreeWalker">
+        <module name="SuppressWarningsHolder" />
+        <module name="AbbreviationAsWordInName">
+            <property name="severity" value="error" />
+            <property name="ignoreOverriddenMethods" value="true" />
+            <property name="ignoreStatic" value="false" />
+            <property name="tokens" value="CLASS_DEF,INTERFACE_DEF,ENUM_DEF,ANNOTATION_DEF,ANNOTATION_FIELD_DEF,PARAMETER_DEF,VARIABLE_DEF,METHOD_DEF" />
+            <property name="allowedAbbreviations" value="IT,URL,URI" />
+            <property name="allowedAbbreviationLength" value="1" />
+        </module>
+        <module name="AbstractClassName">
+            <property name="severity" value="warning" />
+            <property name="ignoreName" value="false" />
+            <property name="ignoreModifier" value="false" />
+            <property name="format" value="^Abstract.+$" />
+        </module>
+        <module name="AnnotationLocation">
+            <property name="severity" value="error" />
+            <property name="allowSamelineSingleParameterlessAnnotation" value="true" />
+            <property name="allowSamelineParameterizedAnnotation" value="false" />
+            <property name="allowSamelineMultipleAnnotations" value="false" />
+            <property name="tokens" value="CLASS_DEF,INTERFACE_DEF,ENUM_DEF,METHOD_DEF,CTOR_DEF" />
+        </module>
+        <module name="AnnotationUseStyle">
+            <property name="severity" value="error" />
+        </module>
+        <module name="AnonInnerLength">
+            <property name="severity" value="error" />
+        </module>
+        <module name="ArrayTypeStyle">
+            <property name="severity" value="error" />
+        </module>
+        <module name="AtclauseOrder">
+            <property name="severity" value="error" />
+            <property name="tagOrder" value="@param,@return,@throws,@deprecated" />
+            <property name="target" value="CLASS_DEF,INTERFACE_DEF,ENUM_DEF,METHOD_DEF,CTOR_DEF,VARIABLE_DEF" />
+        </module>
+        <module name="AvoidEscapedUnicodeCharacters">
+            <property name="severity" value="error" />
+            <property name="allowIfAllCharactersEscaped" value="false" />
+            <property name="allowNonPrintableEscapes" value="true" />
+            <property name="allowByTailComment" value="true" />
+            <property name="allowEscapesForControlCharacters" value="true" />
+        </module>
+        <module name="AvoidStarImport">
+            <property name="severity" value="error" />
+            <property name="allowStaticMemberImports" value="false" />
+            <property name="allowClassImports" value="false" />
+        </module>
+        <module name="ClassDataAbstractionCoupling">
+            <property name="severity" value="error" />
+        </module>
+        <module name="ClassFanOutComplexity">
+            <property name="severity" value="error" />
+        </module>
+        <module name="ClassTypeParameterName">
+            <property name="severity" value="error" />
+            <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)" />
+        </module>
+        <module name="RedundantImport" />
+        <module name="ImportOrder">
+            <property name="groups" value="java,javax,org,edu" />
+            <property name="option" value="top" />
+            <property name="separated" value="true" />
+            <property name="useContainerOrderingForStatic" value="true" />
+        </module>
+        <module name="EmptyBlock">
+            <property name="severity" value="error" />
+            <property name="tokens" value="LITERAL_TRY,LITERAL_CATCH,LITERAL_FINALLY,LITERAL_IF,LITERAL_ELSE,LITERAL_SWITCH" />
+            <property name="option" value="text" />
+        </module>
+        <module name="EqualsHashCode">
+            <property name="severity" value="error" />
+        </module>
+        <module name="FallThrough">
+            <property name="severity" value="error" />
+        </module>
+        <module name="GenericWhitespace">
+            <property name="severity" value="error" />
+        </module>
+        <module name="Indentation">
+            <property name="basicOffset" value="4" />
+            <property name="braceAdjustment" value="0" />
+            <property name="caseIndent" value="4" />
+            <property name="throwsIndent" value="4" />
+            <property name="lineWrappingIndentation" value="4" />
+            <property name="arrayInitIndent" value="4" />
+        </module>
+        <module name="JavaNCSS">
+            <property name="severity" value="error" />
+            <property name="methodMaximum" value="20" />
+        </module>
+        <module name="JavadocParagraph">
+            <property name="severity" value="error" />
+            <property name="allowNewlineParagraph" value="true" />
+        </module>
+        <module name="MethodName">
+            <property name="severity" value="error" />
+            <property name="allowClassName" value="false" />
+            <property name="applyToPackage" value="true" />
+            <property name="format" value="^[a-z][a-z0-9][a-zA-Z0-9_]*$" />
+            <property name="applyToPublic" value="true" />
+            <property name="applyToPrivate" value="true" />
+            <property name="applyToProtected" value="true" />
+        </module>
+        <module name="MethodTypeParameterName">
+            <property name="severity" value="error" />
+            <property name="format" value="(^[A-Z][0-9]?)$|([A-Z][a-zA-Z0-9]*[T]$)" />
+        </module>
+        <module name="MissingSwitchDefault">
+            <property name="severity" value="error" />
+        </module>
+        <module name="ModifierOrder">
+            <property name="severity" value="error" />
+        </module>
+        <module name="MultipleVariableDeclarations">
+            <property name="severity" value="ignore" />
+        </module>
+        <module name="NoFinalizer">
+            <property name="severity" value="error" />
+        </module>
+        <module name="NonEmptyAtclauseDescription">
+            <property name="severity" value="error" />
+            <property name="javadocTokens" value="PARAM_LITERAL,RETURN_LITERAL,THROWS_LITERAL,DEPRECATED_LITERAL" />
+        </module>
+        <module name="OneStatementPerLine">
+            <property name="severity" value="error" />
+        </module>
+        <module name="OneTopLevelClass">
+            <property name="severity" value="error" />
+        </module>
+        <module name="OuterTypeFilename">
+            <property name="severity" value="error" />
+        </module>
+        <module name="OverloadMethodsDeclarationOrder">
+            <property name="severity" value="error" />
+        </module>
+        <module name="PackageName">
+            <property name="severity" value="error" />
+            <property name="format" value="^edu\.mentoring\.[a-z]+(\.[a-z][a-z0-9]*)*$" />
+        </module>
+        <module name="ParameterName">
+            <property name="severity" value="error" />
+            <property name="format" value="^[a-z][a-zA-Z0-9]*$" />
+            <property name="ignoreOverridden" value="false" />
+            <property name="accessModifiers" value="public,protected,package,private" />
+        </module>
+        <module name="UpperEll">
+            <property name="severity" value="error" />
+        </module>
+        <module name="VariableDeclarationUsageDistance">
+            <property name="severity" value="error" />
+            <property name="validateBetweenScopes" value="false" />
+            <property name="ignoreFinal" value="true" />
+            <property name="allowedDistance" value="3" />
+        </module>
+        <module name="SuppressionCommentFilter" />
+        <module name="EmptyLineSeparator">
+            <property name="severity" value="error" />
+            <property name="allowMultipleEmptyLines" value="false" />
+            <property name="allowMultipleEmptyLinesInsideClassMembers" value="false" />
+            <property name="allowNoEmptyLineBetweenFields" value="true" />
+        </module>
+    </module>
+
+</module>

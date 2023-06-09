@@ -1,0 +1,31 @@
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    open-in-view: off
+
+  datasource:
+    driverClassName: org.h2.Driver
+    url: "jdbc:h2:mem:tasktracker;\
+                        MODE=PostgreSQL;\
+                        INIT=CREATE SCHEMA IF NOT EXISTS PUBLIC\\;SET SCHEMA PUBLIC;\
+                        DB_CLOSE_DELAY=-1;\
+                        DB_CLOSE_ON_EXIT=FALSE"
+    username: tasktracker
+    password:
+
+  liquibase:
+    enabled: true
+    change-log: classpath:changelog-main.xml
+    parameters:
+      schema: public
+
+logging:
+#  file:
+#    name: logs/app-log.log
+  level:
+    root: DEBUG
+    org.example.tasktracker: DEBUG
+    org.springframework: DEBUG

@@ -1,0 +1,27 @@
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    open-in-view: false
+
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5433/tasktracker?currentSchema=public
+    username: postgres
+    password: password
+
+  liquibase:
+    enabled: true
+    change-log: classpath:changelog-main.xml
+    parameters:
+      schema: public
+
+logging:
+  #  file:
+  #    name: ./app-log.log
+  level:
+    root: DEBUG
+    org.example.tasktracker: DEBUG
+    org.springframework: DEBUG

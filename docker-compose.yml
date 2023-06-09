@@ -1,0 +1,22 @@
+version: '3.3'
+
+services:
+
+  db:
+    image: postgres:15.2-alpine
+    restart: always
+    ports:
+    - 5433:5432
+    environment:
+      POSTGRES_DB: tasktracker
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+
+  pg-admin:
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+    - 8081:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: 123@test.com
+      PGADMIN_DEFAULT_PASSWORD: 123

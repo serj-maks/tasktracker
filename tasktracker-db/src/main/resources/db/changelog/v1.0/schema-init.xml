@@ -1,0 +1,230 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <!-- project -->
+
+    <changeSet id="v1.0.0.0" author="sergey_maksimov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="project_id_seq"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="project_id_seq"/>
+    </changeSet>
+
+    <changeSet id="v1.0.0.1" author="sergey_maksimov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="project"/>
+            </not>
+        </preConditions>
+        <createTable tableName="project">
+            <column name="id" type="BIGINT" defaultValueSequenceNext="project_id_seq">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false" unique = "true"/>
+            </column>
+            <column name="description" type="TEXT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="v1.0.0.2" author="sergey_maksimov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists primaryKeyName="project_id_pk" tableName="project"/>
+            </not>
+        </preConditions>
+        <addPrimaryKey tableName="project"
+                       columnNames="id"
+                       constraintName="project_id_pk"/>
+    </changeSet>
+
+    <!-- user -->
+
+    <changeSet id="v1.0.0.3" author="sergey_maksimov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="user_id_seq"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="user_id_seq"/>
+    </changeSet>
+
+    <changeSet id="v1.0.0.4" author="sergey_maksimov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="user"/>
+            </not>
+        </preConditions>
+        <createTable tableName="user">
+            <column name="id" type="BIGINT" defaultValueSequenceNext="user_id_seq">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(50)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="v1.0.0.5" author="sergey_maksimov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists primaryKeyName="user_id_pk" tableName="user"/>
+            </not>
+        </preConditions>
+        <addPrimaryKey tableName="user"
+                       columnNames="id"
+                       constraintName="user_id_pk"/>
+    </changeSet>
+
+    <!-- task -->
+
+    <changeSet id="v1.0.0.6" author="sergey_maksimov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="task_id_seq"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="task_id_seq"/>
+    </changeSet>
+
+    <changeSet id="v1.0.0.7" author="sergey_maksimov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="task"/>
+            </not>
+        </preConditions>
+        <createTable tableName="task">
+            <column name="id" type="BIGINT" defaultValueSequenceNext="task_id_seq">
+                <constraints nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="deadline" type="DATE">
+                <constraints nullable="true"/>
+            </column>
+            <column name="priority" type="VARCHAR" defaultValue="NORMAL">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR" defaultValue="OPEN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="TEXT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="project_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="assignee_id" type="BIGINT">
+                <constraints nullable="true"/>
+            </column>
+            <column name="creator_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="v1.0.0.8" author="sergey_maksimov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <primaryKeyExists primaryKeyName="task_id_pk" tableName="task"/>
+            </not>
+        </preConditions>
+        <addPrimaryKey tableName="task"
+                       columnNames="id"
+                       constraintName="task_id_pk"/>
+    </changeSet>
+
+    <changeSet id="v1.0.0.9" author="sergey_maksimov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="task_project_id_fk"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint onDelete="CASCADE"
+                                 baseTableName="task"
+                                 baseColumnNames="project_id"
+                                 constraintName="task_project_fk"
+                                 referencedTableName="project"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="v1.0.0.10" author="sergey_maksimov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="task_assignee_id_fk"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="task"
+                                 baseColumnNames="assignee_id"
+                                 constraintName="task_assignee_fk"
+                                 referencedTableName="user"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="v1.0.0.11" author="sergey_maksimov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="task_creator_id_fk"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="task"
+                                 baseColumnNames="creator_id"
+                                 constraintName="task_creator_fk"
+                                 referencedTableName="user"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <!-- project_user -->
+
+    <changeSet id="v1.0.0.12" author="sergey_maksimov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="project_user"/>
+            </not>
+        </preConditions>
+        <createTable tableName="project_user">
+            <column name="project_id" type="BIGINT" defaultValueSequenceNext="project_id_seq">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="BIGINT" defaultValueSequenceNext="user_id_seq">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="v1.0.0.13" author="sergey_maksimov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="project_id_fk"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint onDelete="CASCADE"
+                                 baseTableName="project_user"
+                                 baseColumnNames="project_id"
+                                 constraintName="project_id_fk"
+                                 referencedTableName="project"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="v1.0.0.14" author="sergey_maksimov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="user_id_fk"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="project_user"
+                                 baseColumnNames="user_id"
+                                 constraintName="user_id_fk"
+                                 referencedTableName="user"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>
